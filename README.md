@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS |
 |:--------:|:---------:|:-----------------:|
-|BINTRAY_BADGE_URL|APPVEYOR_BADGE_URL|TRAVIS_BADGE_URL|
+|[ ![Download](https://api.bintray.com/packages/luciano/conan-tulip/Tulip%3Alboillod/images/download.svg) ](https://bintray.com/luciano/conan-tulip/Tulip%3Alboillod/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/9vdhae9ly746uiav?svg=true)](https://ci.appveyor.com/project/lucienboillod/conan-tulip)|[![Build Status](https://travis-ci.org/lucienboillod/conan-tulip.svg?branch=master)](https://travis-ci.org/lucienboillod/conan-tulip)|
 
 ## Conan.io Information
 
