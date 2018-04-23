@@ -27,7 +27,7 @@ class TulipConan(ConanFile):
         self.requires("gtest/1.8.0@bincrafters/stable")
         self.requires("freetype/2.9.0@lboillod/testing")
         self.requires("glew/2.1.0@dimi309/stable")
-        self.requires("Qt/5.9.0@lboillod/testing")
+        self.requires("Qt/5.11@lboillod/testing")
 
     def source(self):
         cloned_sources = os.path.join(self.source_folder, self.source_dir)
