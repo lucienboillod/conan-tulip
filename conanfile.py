@@ -19,7 +19,7 @@ class TulipConan(ConanFile):
     export_sources = ["CmakeLists.txt"]
     generators = "cmake"
     short_paths = True
-    build_policy = "missing"
+    build_policy = "always"
 
     def requirements(self):
         self.requires("zlib/1.2.11@conan/stable")
