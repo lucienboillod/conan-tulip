@@ -26,7 +26,7 @@ class TulipConan(ConanFile):
         self.requires("libpng/1.6.34@bincrafters/stable")
         self.requires("gtest/1.8.0@bincrafters/stable")
         self.requires("freetype/2.9.0@lboillod/testing")
-        self.requires("glew/2.1.0@dimi309/stable")
+        self.requires("glew/2.1.0@bincrafters/stable")
         self.requires("Qt/5.9.0@lboillod/testing")
 
     def source(self):
