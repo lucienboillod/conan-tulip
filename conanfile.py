@@ -19,7 +19,6 @@ class TulipConan(ConanFile):
     export_sources = ["CmakeLists.txt"]
     generators = "cmake"
     short_paths = True
-    build_policy = "always"
 
     def requirements(self):
         self.requires("zlib/1.2.11@conan/stable")
@@ -27,8 +26,8 @@ class TulipConan(ConanFile):
         self.requires("libpng/1.6.34@bincrafters/stable")
         self.requires("gtest/1.8.0@bincrafters/stable")
         self.requires("freetype/2.9.0@bincrafters/stable")
-        self.requires("glew/2.1.0@bincrafters/stable")
-        self.requires("Qt/5.9@bincrafters/stable")
+        self.requires("Qt/5.9@lucienboillod/stable")
+        self.requires("glew/2.1.0@lucienboillod/stable")
 
 
     def source(self):
