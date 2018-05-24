@@ -13,7 +13,9 @@ class TulipConan(ConanFile):
     url = "https://github.com/lucienboillod/conan-tulip"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = "shared=False", "libpng:shared=False", "zlib:shared=False", "freetype:shared=False", "qt:shared=True"
+    default_options = "shared=False", "libpng:shared=False", \
+                       "zlib:shared=False", "freetype:shared=False", \
+                       "Qt:opengl=dynamic", "Qt:webengine=True"
     repo = "https://github.com/Tulip-Dev/tulip.git"
     source_dir = "tulip"
     export_sources = ["CmakeLists.txt"]
@@ -26,8 +28,8 @@ class TulipConan(ConanFile):
         self.requires("libpng/1.6.34@bincrafters/stable")
         self.requires("gtest/1.8.0@bincrafters/stable")
         self.requires("freetype/2.9.0@bincrafters/stable")
+        self.requires("glew/2.1.0@bincrafters/stable")
         self.requires("Qt/5.9@lucienboillod/stable")
-        self.requires("glew/2.1.0@lucienboillod/stable")
 
 
     def source(self):
