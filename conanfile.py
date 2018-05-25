@@ -7,7 +7,7 @@ import sys
 
 class TulipConan(ConanFile):
     name = "Tulip"
-    version = "94f76ffee6c"
+    version = "master"
     description = "build of %s-%s" % (name, version)
     license = "Tulip is free software under the terms of GNU Lesser General Public License."
     url = "https://github.com/lucienboillod/conan-tulip"
