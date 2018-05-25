@@ -14,8 +14,7 @@ class TulipConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False", "libpng:shared=False", \
-                       "zlib:shared=False", "freetype:shared=False", \
-                       "Qt:opengl=dynamic", "Qt:webengine=True"
+                       "zlib:shared=False", "freetype:shared=False"
     repo = "https://github.com/Tulip-Dev/tulip.git"
     source_dir = "tulip"
     export_sources = ["CmakeLists.txt"]
