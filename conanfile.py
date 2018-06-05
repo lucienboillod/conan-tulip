@@ -13,8 +13,10 @@ class TulipConan(ConanFile):
     url = "https://github.com/lucienboillod/conan-tulip"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
-    default_options = "shared=False", "libpng:shared=False", \
-                       "zlib:shared=False", "freetype:shared=False"
+    default_options = "shared=False", "libpng:shared=False", "freetype:with_png=False",\
+                       "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
+                       "glew:shared=True", "qt:webengine=True", "qt:webkit=True"
+
     repo = "https://github.com/Tulip-Dev/tulip.git"
     source_dir = "tulip"
     export_sources = ["CmakeLists.txt"]
