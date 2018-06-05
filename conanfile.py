@@ -47,6 +47,9 @@ conan_basic_setup()""")
     def configure(self):
         pass
 
+    def imports(self):
+        self.copy("*.dll", "", "bin")
+
     def build(self):
         with tools.chdir(os.path.join(self.source_folder, self.source_dir)):
             cmake = CMake(self)
