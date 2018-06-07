@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, CMake, tools
+from conans import ConanFile, CMake, tools, AutoToolsBuildEnvironment
 import os
 import sys
 
@@ -51,6 +51,8 @@ conan_basic_setup()""")
         self.copy("*.dll", "", "bin")
 
     def build(self):
+        env_build = AutoToolsBuildEnvironment(self)
+        env_vars = env_build.vars.copy()
         with tools.chdir(os.path.join(self.source_folder, self.source_dir)):
             if self.settings.os == "Macos":
                     imported_libs = os.listdir(self.deps_cpp_info['Glew'].lib_paths[0])
@@ -62,17 +64,18 @@ conan_basic_setup()""")
                         env_vars['LD_LIBRARY_PATH'] = ':'.join([env_vars['LD_LIBRARY_PATH']] + self.deps_cpp_info.libdirs)
                     else:
                         env_vars['LD_LIBRARY_PATH'] = ':'.join(self.deps_cpp_info.libdirs)
-            cmake = CMake(self)
-            cmake.verbose = True
-            cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "OFF"
-            cmake.definitions["TULIP_ENABLE_OPENMP"] = "OFF"
-            cmake.definitions["TULIP_BUILD_PYTHON_COMPONENTS"] = "OFF"
-            cmake.definitions["TULIP_BUILD_DOC"] = "OFF"
-            cmake.definitions["TULIP_USE_QT5"] = "ON"
-            cmake.definitions["TULIP_FIXUP_BUNDLE"] = "ON"
-            cmake.configure(source_dir=os.path.join(self.source_folder, self.source_dir))
-            cmake.build()
-            cmake.install()
+            with environment_append(env_vars):
+                cmake = CMake(self)
+                cmake.verbose = True
+                cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "OFF"
+                cmake.definitions["TULIP_ENABLE_OPENMP"] = "OFF"
+                cmake.definitions["TULIP_BUILD_PYTHON_COMPONENTS"] = "OFF"
+                cmake.definitions["TULIP_BUILD_DOC"] = "OFF"
+                cmake.definitions["TULIP_USE_QT5"] = "ON"
+                cmake.definitions["TULIP_FIXUP_BUNDLE"] = "ON"
+                cmake.configure(source_dir=os.path.join(self.source_folder, self.source_dir))
+                cmake.build()
+                cmake.install()
 
     def package(self):
         pass
