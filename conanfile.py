@@ -57,7 +57,7 @@ conan_basic_setup()""")
                     for imported_lib in imported_libs:
                         shutil.copy(self.deps_cpp_info['Glew'].lib_paths[0] + '/' + imported_lib, self.FOLDER_NAME)
                     self.output.warn("Copying Glew libraries to fix conftest")
-                if self.settings.os == "Linux":
+            if self.settings.os == "Linux":
                     if 'LD_LIBRARY_PATH' in env_vars:
                         env_vars['LD_LIBRARY_PATH'] = ':'.join([env_vars['LD_LIBRARY_PATH']] + self.deps_cpp_info.libdirs)
                     else:
