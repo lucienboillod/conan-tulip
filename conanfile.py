@@ -52,6 +52,16 @@ conan_basic_setup()""")
 
     def build(self):
         with tools.chdir(os.path.join(self.source_folder, self.source_dir)):
+            if self.settings.os == "Macos":
+                    imported_libs = os.listdir(self.deps_cpp_info['Glew'].lib_paths[0])
+                    for imported_lib in imported_libs:
+                        shutil.copy(self.deps_cpp_info['Glew'].lib_paths[0] + '/' + imported_lib, self.FOLDER_NAME)
+                    self.output.warn("Copying Glew libraries to fix conftest")
+                if self.settings.os == "Linux":
+                    if 'LD_LIBRARY_PATH' in env_vars:
+                        env_vars['LD_LIBRARY_PATH'] = ':'.join([env_vars['LD_LIBRARY_PATH']] + self.deps_cpp_info.libdirs)
+                    else:
+                        env_vars['LD_LIBRARY_PATH'] = ':'.join(self.deps_cpp_info.libdirs)
             cmake = CMake(self)
             cmake.verbose = True
             cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "OFF"
