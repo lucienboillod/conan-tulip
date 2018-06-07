@@ -77,4 +77,4 @@ conan_basic_setup()""")
     def package_info(self):
         self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
         self.env_info.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
-        self.ccp_info.libs = tools.collect_libs(self)
+        self.cpp_info.libs = tools.collect_libs(self)
