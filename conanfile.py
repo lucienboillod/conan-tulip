@@ -54,16 +54,6 @@ conan_basic_setup()""")
         env_build = AutoToolsBuildEnvironment(self)
         env_vars = env_build.vars.copy()
         with tools.chdir(os.path.join(self.source_folder, self.source_dir)):
-            if self.settings.os == "Macos":
-                    imported_libs = os.listdir(self.deps_cpp_info['Glew'].lib_paths[0])
-                    for imported_lib in imported_libs:
-                        shutil.copy(self.deps_cpp_info['Glew'].lib_paths[0] + '/' + imported_lib, self.FOLDER_NAME)
-                    self.output.warn("Copying Glew libraries to fix conftest")
-            if self.settings.os == "Linux":
-                    if 'LD_LIBRARY_PATH' in env_vars:
-                        env_vars['LD_LIBRARY_PATH'] = ':'.join([env_vars['LD_LIBRARY_PATH']] + self.deps_cpp_info.libdirs)
-                    else:
-                        env_vars['LD_LIBRARY_PATH'] = ':'.join(self.deps_cpp_info.libdirs)
             with tools.environment_append(env_vars):
                 cmake = CMake(self)
                 cmake.verbose = True
@@ -78,7 +68,11 @@ conan_basic_setup()""")
                 cmake.install()
 
     def package(self):
-        pass
+        self.copy(pattern="*.dll", dst="bin", keep_path=False)
+        self.copy(pattern="*.dylib", dst="lib", keep_path=False)
+        self.copy(pattern="*.so*", dst="lib", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["tulip"]
+        self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
+        self.env_info.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
+        self.ccp_info.libs = tools.collect_libs(self)
