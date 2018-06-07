@@ -64,7 +64,7 @@ conan_basic_setup()""")
                         env_vars['LD_LIBRARY_PATH'] = ':'.join([env_vars['LD_LIBRARY_PATH']] + self.deps_cpp_info.libdirs)
                     else:
                         env_vars['LD_LIBRARY_PATH'] = ':'.join(self.deps_cpp_info.libdirs)
-            with environment_append(env_vars):
+            with tools.environment_append(env_vars):
                 cmake = CMake(self)
                 cmake.verbose = True
                 cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "OFF"
