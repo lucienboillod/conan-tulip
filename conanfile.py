@@ -15,7 +15,7 @@ class TulipConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = "shared=False", "libpng:shared=False", "freetype:with_png=False",\
                        "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
-                       "glew:shared=True", "qt:webengine=True", "qt:webkit=True"
+                       "glew:shared=True", "qt:webengine=True", "qt:webkit=True", "qt:opengl=desktop"
 
     repo = "https://github.com/Tulip-Dev/tulip.git"
     source_dir = "tulip"
