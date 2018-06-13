@@ -23,6 +23,7 @@ class TulipConan(ConanFile):
     generators = "cmake"
     short_paths = True
     build_policy = "missing"
+    keep_imports = True
 
     def requirements(self):
         self.requires("zlib/1.2.11@conan/stable")
@@ -49,9 +50,9 @@ conan_basic_setup()""")
         pass
 
     def imports(self):
-        self.copy(pattern="*.dll", dst="bin", keep_path=False)
-        self.copy(pattern="*.dylib", dst="lib", keep_path=False)
-        self.copy(pattern="*.so*", dst="lib", keep_path=False)
+        self.copy(pattern="*.dll", dst="bin")
+        self.copy(pattern="*.dylib", dst="lib")
+        self.copy(pattern="*.so*", dst="lib")
 
     def build(self):
         env_build = AutoToolsBuildEnvironment(self)
@@ -71,9 +72,9 @@ conan_basic_setup()""")
                 cmake.install()
 
     def package(self):
-        self.copy(pattern="*.dll", dst="bin", keep_path=False)
-        self.copy(pattern="*.dylib", dst="lib", keep_path=False)
-        self.copy(pattern="*.so*", dst="lib", keep_path=False)
+        self.copy(pattern="*.dll", dst="bin", src="bin", keep_path=False)
+        self.copy(pattern="*.dylib", dst="lib", src="lib", keep_path=False)
+        self.copy(pattern="*.so*", dst="lib", src="lib", keep_path=False)
 
     def package_info(self):
         self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
