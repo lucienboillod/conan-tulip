@@ -66,7 +66,7 @@ conan_basic_setup()""")
                 cmake.definitions["TULIP_BUILD_PYTHON_COMPONENTS"] = "OFF"
                 cmake.definitions["TULIP_BUILD_DOC"] = "OFF"
                 cmake.definitions["TULIP_USE_QT5"] = "ON"
-                cmake.definitions["TULIP_FIXUP_BUNDLE"] = "ON"
+                cmake.definitions["TULIP_FIXUP_BUNDLE"] = "OFF"
                 cmake.configure(source_dir=os.path.join(self.source_folder, self.source_dir))
                 cmake.build()
                 cmake.install()
