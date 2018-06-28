@@ -48,7 +48,7 @@ class TulipConan(ConanFile):
 
     def source(self):
         cloned_sources = os.path.join(self.source_folder, self.source_dir)
-        self.run("git clone {repo} {dir}".format(repo=self.repo, dir=cloned_sources))
+        self.run("git clone {repo} {dir}".format(repo=self.url, dir=cloned_sources))
         with tools.chdir(cloned_sources):
             self.run("git checkout {commit}".format(commit=self.version))
         os.rename(cloned_sources, "tulip")
