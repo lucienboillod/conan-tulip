@@ -27,7 +27,8 @@ class TulipConan(ConanFile):
         "python_wheels": [True, False],
         "qhull": [True, False],
         "qt5": [True, False],
-        "tests": [True, False]
+        "tests": [True, False],
+        "shared": [True, False]
     }
     default_options = "shared=False", "libpng:shared=False", "freetype:with_png=False",\
                        "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
