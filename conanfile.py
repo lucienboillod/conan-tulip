@@ -9,10 +9,14 @@ class TulipConan(ConanFile):
 
     name = "Tulip"
     version = "master"
-    description = "build of %s-%s" % (name, version)
-    license = "Tulip is free software under the terms of GNU Lesser General Public License."
+    description = "Conan.io package for Qt - build of %s" % (version)
     url = "https://github.com/lucienboillod/conan-tulip"
+    homepage = "http://tulip.labri.fr"
+    license = "Tulip is free software under the terms of GNU Lesser General Public License."
+    author = "Lucien Boillod <lucienboillod@gmail.com>"
     settings = "os", "compiler", "build_type", "arch"
+    export_sources = ["CmakeLists.txt"]
+    generators = "cmake"
     options = {
         "ccache": [True, False],
         "core_only": [True, False],
@@ -29,11 +33,7 @@ class TulipConan(ConanFile):
     default_options = "shared=False", "libpng:shared=False", "freetype:with_png=False",\
                        "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
                        "glew:shared=True", "Qt:opengl=desktop"
-
-    repo = "https://github.com/Tulip-Dev/tulip.git"
     source_dir = "tulip"
-    export_sources = ["CmakeLists.txt"]
-    generators = "cmake"
     short_paths = True
     build_policy = "missing"
     keep_imports = True
