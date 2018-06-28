@@ -3,7 +3,6 @@
 
 from conans import ConanFile, CMake, tools, AutoToolsBuildEnvironment
 import os
-import sys
 
 class TulipConan(ConanFile):
 
@@ -88,7 +87,7 @@ conan_basic_setup()""")
                 if self.options.python_site:
                     cmake.definitions["TULIP_PYTHON_SITE_INSTALL"] = "ON"
                 if self.options.python_wheels:
-                    cmake.defintiions["TULIP_ACTIVATE_PYTHON_WHEELS_TARGETS"] = "ON"
+                    cmake.definitions["TULIP_ACTIVATE_PYTHON_WHEELS_TARGETS"] = "ON"
                 if self.options.qhull:
                     cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "ON"
                 if self.options.qt5:
