@@ -6,13 +6,26 @@ import os
 import sys
 
 class TulipConan(ConanFile):
+
     name = "Tulip"
     version = "master"
     description = "build of %s-%s" % (name, version)
     license = "Tulip is free software under the terms of GNU Lesser General Public License."
     url = "https://github.com/lucienboillod/conan-tulip"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
+    options = {
+        "ccache": [True, False],
+        "core_only": [True, False],
+        "doc": [True, False],
+        "fixup_bundle": [True, False],
+        "multithreading": [True, False],
+        "python_components": [True, False],
+        "python_site": [True, False],
+        "python_wheels": [True, False],
+        "qhull": [True, False],
+        "qt5": [True, False],
+        "tests": [True, False]
+    }
     default_options = "shared=False", "libpng:shared=False", "freetype:with_png=False",\
                        "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
                        "glew:shared=True", "Qt:opengl=desktop"
@@ -32,8 +45,7 @@ class TulipConan(ConanFile):
         self.requires("gtest/1.8.0@bincrafters/stable")
         self.requires("freetype/2.9.0@bincrafters/stable")
         self.requires("glew/2.1.0@bincrafters/stable")
-        self.requires("Qt/5.11.0@lucienboillod/stable")
-
+        self.requires("Qt/5.11.0@bincrafters/stable")
 
     def source(self):
         cloned_sources = os.path.join(self.source_folder, self.source_dir)
@@ -61,12 +73,28 @@ conan_basic_setup()""")
             with tools.environment_append(env_vars):
                 cmake = CMake(self)
                 cmake.verbose = True
-                cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "OFF"
-                cmake.definitions["TULIP_ENABLE_OPENMP"] = "OFF"
-                cmake.definitions["TULIP_BUILD_PYTHON_COMPONENTS"] = "OFF"
-                cmake.definitions["TULIP_BUILD_DOC"] = "OFF"
-                cmake.definitions["TULIP_USE_QT5"] = "ON"
-                cmake.definitions["TULIP_FIXUP_BUNDLE"] = "OFF"
+                if self.options.ccache:
+                    cmake.definitions["TULIP_USE_CCACHE"] = "ON"
+                if self.options.core_only:
+                    cmake.definitions["TULIP_BUILD_CORE_ONLY"] = "ON"
+                if self.options.doc:
+                    cmake.definitions["TULIP_BUILD_DOC"] = "ON"
+                if not self.options.fixup_bundle:
+                    cmake.definitions["TULIP_FIXUP_BUNDLE"] = "OFF"
+                if self.options.multithreading:
+                    cmake.definitions["TULIP_ENABLE_MULTI_THREADING"] = "ON"
+                if self.options.python_components:
+                    cmake.definitions["TULIP_BUILD_PYTHON_COMPONENTS"] = "ON"
+                if self.options.python_site:
+                    cmake.definitions["TULIP_PYTHON_SITE_INSTALL"] = "ON"
+                if self.options.python_wheels:
+                    cmake.defintiions["TULIP_ACTIVATE_PYTHON_WHEELS_TARGETS"] = "ON"
+                if self.options.qhull:
+                    cmake.definitions["TULIP_USE_THIRDPARTY_QHULL"] = "ON"
+                if self.options.qt5:
+                    cmake.definitions["TULIP_USE_QT5"] = "ON"
+                if self.options.tests:
+                    cmake.definitions["TULIP_BUILD_TESTS"] = "OFF"
                 cmake.configure(source_dir=os.path.join(self.source_folder, self.source_dir))
                 cmake.build()
                 cmake.install()
