@@ -32,7 +32,7 @@ class TulipConan(ConanFile):
     }
     default_options = ("libpng:shared=False", "freetype:with_png=False",\
                        "zlib:shared=False", "freetype:shared=False", "freetype:with_zlib=False", \
-                       "glew:shared=True", "Qt:opengl=desktop") + tuple(option[2:] + "=False" for option in options)
+                       "glew:shared=True", "Qt:opengl=desktop") + tuple(option + "=False" for option in options)
     source_dir = "tulip"
     short_paths = True
     build_policy = "missing"
